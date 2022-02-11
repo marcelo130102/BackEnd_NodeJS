@@ -5,14 +5,34 @@ const connection = mysql.createConnection({
     port: 3306,
     user: 'marcelo',
     password: '1301200224012004Mss',
-    database: 'world'
+    database: 'test'
 })
 
-connection.query('SELECT * FROM city', function(error, result){
+/*connection.query('SELECT * FROM movies', function(error, result){
     if(error){
         console.log(error.sqlMessage)
     }
     else{
         console.log(result)
     }
-})
+}) */
+
+
+function query (sql, data){
+    return new Promise((resolve, reject)=>{
+        connection.query(sql,data, function(error, result){
+            if(error){
+                reject(error.sqlMessage)
+            }
+            else{
+                resolve(result);
+            }
+        })
+    })
+}
+
+module.exports = query;
+
+//query('SELECT * FROM movies')
+//.then((results)=>{console.log(results)})
+//.catch((error)=>{console.log(error)})
